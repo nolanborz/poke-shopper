@@ -1,0 +1,2 @@
+class PokemonProduct < ApplicationRecord
+end
