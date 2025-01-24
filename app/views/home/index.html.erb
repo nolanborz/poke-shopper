@@ -1,1 +1,11 @@
-<h2>Header</h2>
+# app/views/home/index.html.erb
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+  <% @pokemon_products.each do |product| %>
+    <div class="border p-4 rounded shadow">
+      <h2 class="text-xl font-bold"><%= product.name %></h2>
+      <p class="mt-2"><%= product.description %></p>
+      <p class="mt-2 text-lg">$<%= product.price %></p>
+      <%# Add to cart button here later %>
+    </div>
+  <% end %>
+</div>
