@@ -1,0 +1,6 @@
+<div class="bg-white p-4 rounded shadow">
+  <h2 class="text-xl font-bold"><%= product.name %></h2>
+  <p class="mt-2"><%= product.description %></p>
+  <p class="mt-2 text-lg">$<%= product.price %></p>
+  <%= button_to "Add to Cart", cart_items_path(pokemon_product_id: product.id), class: "mt-4 bg-blue-500 text-white px-4 py-2 rounded" %>
+</div>
