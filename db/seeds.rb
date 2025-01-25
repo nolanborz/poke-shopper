@@ -1,9 +1,13 @@
-# db/seeds.rb
 require 'poke-api-v2'
+
+# #generate 12 unique numbers to pull pokemon from the API with
+def random_numbers(count)
+  (1..1017).to_a.sample(count)
+end
 
 PokemonProduct.destroy_all
 
-[ 1, 4, 7, 25, 133, 149 ].each do |pokemon_id|
+random_numbers(12).each do |pokemon_id|
   pokemon = PokeApi.get(pokemon: pokemon_id)
   species = PokeApi.get(pokemon_species: pokemon_id)
 
