@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :shopping_carts
   resources :pokemon_products
   resources :orders
+  resources :cart_items, only: [ :create ]
   # Defines the root path route ("/")
   root "home#index"
 end

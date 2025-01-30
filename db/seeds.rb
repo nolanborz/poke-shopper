@@ -24,7 +24,8 @@ random_numbers(12).each do |pokemon_id|
     name: pokemon.name.capitalize,
     description: description,
     price: rand(10.0..100.0).round(2),
-    pokemon_api_id: pokemon_id
+    pokemon_api_id: pokemon_id,
+    sprite_url: pokemon.sprites.front_default
   )
   InventoryItem.create!(
     pokemon_product_id: new_pokemon.id,
