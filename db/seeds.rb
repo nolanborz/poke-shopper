@@ -5,6 +5,11 @@ def random_numbers(count)
   (1..1017).to_a.sample(count)
 end
 
+CartItem.destroy_all
+OrderItem.destroy_all
+InventoryItem.destroy_all
+Order.destroy_all
+ShoppingCart.destroy_all
 PokemonProduct.destroy_all
 
 random_numbers(12).each do |pokemon_id|
@@ -15,10 +20,14 @@ random_numbers(12).each do |pokemon_id|
     .find { |entry| entry.language.name == "en" }&.flavor_text
     .to_s.gsub(/\n|\f/, ' ')
 
-  PokemonProduct.create!(
+  new_pokemon = PokemonProduct.create!(
     name: pokemon.name.capitalize,
     description: description,
     price: rand(10.0..100.0).round(2),
     pokemon_api_id: pokemon_id
+  )
+  InventoryItem.create!(
+    pokemon_product_id: new_pokemon.id,
+    quantity: rand(5..20)
   )
 end
