@@ -1,0 +1,11 @@
+<%# app/views/shopping_carts/_cart_total.html.erb %>
+<%= turbo_frame_tag "cart_total" do %>
+  <div class="flex justify-between items-center border-t pt-4 mt-4">
+    <div class="text-xl font-bold">
+      Total: $<%= number_with_precision(cart.total_price, precision: 2) %>
+    </div>
+    
+    <%= button_to "Checkout", orders_path, method: :post,
+        class: "bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600" %>
+  </div>
+<% end %>

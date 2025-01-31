@@ -1,0 +1,4 @@
+<%# app/views/shared/_cart_count.html.erb %>
+<%= turbo_frame_tag "cart_count" do %>
+  Cart (<%= cart.total_items || 0 %>)
+<% end %>

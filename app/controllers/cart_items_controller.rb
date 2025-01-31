@@ -4,37 +4,28 @@ class CartItemsController < ApplicationController
   before_action :set_cart
 
   def create
-    # Debug logging
-    Rails.logger.debug "=================="
-    Rails.logger.debug "Params: #{params.inspect}"
-    Rails.logger.debug "Cart Item Params: #{cart_item_params.inspect}"
-    Rails.logger.debug "Current Cart: #{@cart.inspect}"
-    Rails.logger.debug "=================="
-
-    # Check if item already exists in cart
     cart_item = @cart.cart_items.find_by(pokemon_product_id: cart_item_params[:pokemon_product_id])
 
     if cart_item
-      # Update quantity if item exists
       cart_item.quantity += cart_item_params[:quantity].to_i
       success = cart_item.save
     else
-      # Create new cart item if it doesn't exist
       cart_item = @cart.cart_items.build(cart_item_params)
       success = cart_item.save
-
-      # Debug logging for new item
-      Rails.logger.debug "New Cart Item: #{cart_item.inspect}"
-      Rails.logger.debug "Errors: #{cart_item.errors.full_messages}" if !success
     end
 
     respond_to do |format|
       if success
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.replace("cart_items", partial: "shopping_carts/cart_items", locals: { cart: @cart }),
+            turbo_stream.replace("cart_total", partial: "shopping_carts/cart_total", locals: { cart: @cart }),
+            turbo_stream.replace("cart_count", partial: "shared/cart_count", locals: { cart: @cart })
+          ]
+        }
         format.html { redirect_back_or_to root_path, notice: "Item added to cart!" }
-        format.turbo_stream { flash.now[:notice] = "Item added to cart!" }
       else
         format.html { redirect_back_or_to root_path, alert: "Could not add item to cart." }
-        format.turbo_stream { flash.now[:alert] = "Could not add item to cart." }
       end
     end
   end
@@ -44,8 +35,14 @@ class CartItemsController < ApplicationController
     cart_item.destroy
 
     respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: [
+          turbo_stream.replace("cart_items", partial: "shopping_carts/cart_items", locals: { cart: @cart }),
+          turbo_stream.replace("cart_total", partial: "shopping_carts/cart_total", locals: { cart: @cart }),
+          turbo_stream.replace("cart_count", partial: "shared/cart_count", locals: { cart: @cart })
+        ]
+      }
       format.html { redirect_to cart_path, notice: "Item removed from cart." }
-      format.turbo_stream { flash.now[:notice] = "Item removed from cart." }
     end
   end
 

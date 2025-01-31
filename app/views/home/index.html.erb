@@ -1,5 +1,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
   <% @pokemon_products.each do |product| %>
-    <%= render partial: "pokemon_products/product_card", locals: { product: product } %>
+    <div class="h-full">  <%# Wrapper div to maintain height %>
+      <%= render partial: "pokemon_products/product_card", locals: { product: product } %>
+    </div>
   <% end %>
 </div>

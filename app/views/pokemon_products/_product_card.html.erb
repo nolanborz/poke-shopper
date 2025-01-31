@@ -1,19 +1,31 @@
-<div class="bg-white p-4 rounded shadow">
-  <h2 class="text-xl font-bold"><%= product.name %></h2>
-  <%= image_tag product.sprite_url, alt: product.name %>
-  <p class="mt-2"><%= product.description %></p>
-  <p class="mt-2 text-lg">$<%= product.price %></p>
+<div class="bg-white p-4 rounded shadow h-full flex flex-col">
+  <%# Header section %>
+  <h2 class="text-xl font-bold mb-2"><%= product.name %></h2>
   
-  <%= form_with(model: CartItem.new, class: "mt-4") do |f| %>
-    <%= f.hidden_field :pokemon_product_id, value: product.id %>
-    <div class="flex gap-2">
-      <%= f.number_field :quantity,
-      value: 1,
-      min: 1,
-      class: "w-20 rounded border-gray-300" %>
-      <%= f.submit "Add to Cart",
-      class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
-
-    </div>
-  <% end %>
+  <%# Image section - fixed height %>
+  <div class="w-full aspect-square mb-2">
+    <%= image_tag product.sprite_url, alt: product.name, class: "w-full h-full object-contain" %>
+  </div>
+  
+  <%# Description section - will shrink/grow as needed %>
+  <div class="flex-grow">
+    <p class="text-gray-600"><%= product.description %></p>
+  </div>
+  
+  <%# Price and form section - always at bottom %>
+  <div class="mt-auto pt-4">
+    <p class="text-lg font-bold mb-4">$<%= product.price %></p>
+    
+    <%= form_with(model: CartItem.new) do |f| %>
+      <%= f.hidden_field :pokemon_product_id, value: product.id %>
+      <div class="flex flex-wrap gap-2 w-full">
+        <%= f.number_field :quantity,
+            value: 1,
+            min: 1,
+            class: "w-20 rounded border-gray-300 flex-shrink-0" %>
+        <%= f.submit "Add to Cart",
+            class: "flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 min-w-fit" %>
+      </div>
+    <% end %>
+  </div>
 </div>
