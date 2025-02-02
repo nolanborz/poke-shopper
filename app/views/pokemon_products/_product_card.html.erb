@@ -23,7 +23,7 @@
         <%= f.number_field :quantity,
             value: 1,
             min: 1,
-            class: "w-20 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white flex-shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto",
+            class: "w-20 text-center rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white flex-shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto",
             style: "-moz-appearance: auto;" %>
         <%= f.submit "Add to Cart",
             class: "flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 min-w-fit" %>
@@ -32,7 +32,6 @@
   </div>
 </div>
 
-<%# Add this CSS to your stylesheet or in a <style> tag in your layout %>
 <style>
   .scrollbar-visible::-webkit-scrollbar {
     width: 10px;
