@@ -1,20 +1,21 @@
-<div class="bg-white p-4 rounded shadow h-full flex flex-col">
-  <%# Header section %>
-  <h2 class="text-xl font-bold mb-2"><%= product.name %></h2>
+
+<div class="bg-white dark:bg-gray-800 p-4 rounded shadow h-full flex flex-col">
+  <%# Pokemon name %>
+  <h2 class="text-xl font-bold mb-2 dark:text-white"><%= product.name %></h2>
   
-  <%# Image section - fixed height %>
+  <%# Pokemon sprite %>
   <div class="w-full aspect-square mb-2">
     <%= image_tag product.sprite_url, alt: product.name, class: "w-full h-full object-contain" %>
   </div>
   
-  <%# Description section - will shrink/grow as needed %>
-  <div class="flex-grow">
-    <p class="text-gray-600"><%= product.description %></p>
+  <%# Description section with visible scrollbar %>
+  <div class="flex-grow overflow-y-scroll scrollbar-visible" style="max-height: 100px;">
+    <p class="text-gray-600 dark:text-gray-300 pr-2"><%= product.description %></p>
   </div>
   
-  <%# Price and form section - always at bottom %>
-  <div class="mt-auto pt-4">
-    <p class="text-lg font-bold mb-4">$<%= product.price %></p>
+  <%# Price and add to cart %>
+  <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+    <p class="text-lg font-bold mb-4 text-gray-900 dark:text-white">$<%= product.price %></p>
     
     <%= form_with(model: CartItem.new) do |f| %>
       <%= f.hidden_field :pokemon_product_id, value: product.id %>
@@ -22,10 +23,55 @@
         <%= f.number_field :quantity,
             value: 1,
             min: 1,
-            class: "w-20 rounded border-gray-300 flex-shrink-0" %>
+            class: "w-20 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white flex-shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto",
+            style: "-moz-appearance: auto;" %>
         <%= f.submit "Add to Cart",
             class: "flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 min-w-fit" %>
       </div>
     <% end %>
   </div>
 </div>
+
+<%# Add this CSS to your stylesheet or in a <style> tag in your layout %>
+<style>
+  .scrollbar-visible::-webkit-scrollbar {
+    width: 10px;
+    display: block;
+  }
+  
+  .scrollbar-visible::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+  
+  .dark .scrollbar-visible::-webkit-scrollbar-track {
+    background: #374151;
+  }
+  
+  .scrollbar-visible::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  .dark .scrollbar-visible::-webkit-scrollbar-thumb {
+    background: #4B5563;
+  }
+  
+  .scrollbar-visible::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .dark .scrollbar-visible::-webkit-scrollbar-thumb:hover {
+    background: #6B7280;
+  }
+  
+  /* For Firefox */
+  .scrollbar-visible {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  
+  .dark .scrollbar-visible {
+    scrollbar-color: #4B5563 #374151;
+  }
+</style>

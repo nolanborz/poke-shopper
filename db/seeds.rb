@@ -12,7 +12,7 @@ Order.destroy_all
 ShoppingCart.destroy_all
 PokemonProduct.destroy_all
 
-random_numbers(12).each do |pokemon_id|
+random_numbers(48).each do |pokemon_id|
   pokemon = PokeApi.get(pokemon: pokemon_id)
   species = PokeApi.get(pokemon_species: pokemon_id)
 
@@ -23,7 +23,7 @@ random_numbers(12).each do |pokemon_id|
   new_pokemon = PokemonProduct.create!(
     name: pokemon.name.capitalize,
     description: description,
-    price: rand(10.0..100.0).round(2),
+    price: rand(10.0..50.0).round(2),
     pokemon_api_id: pokemon_id,
     sprite_url: pokemon.sprites.front_default
   )
