@@ -46,7 +46,27 @@
 
     <main class="container mx-auto grid grid-cols-12 gap-4 p-4">
       <aside class="col-span-2 bg-white  dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-gray-900 dark:text-white">Filters</h3>
+        <h3 class="text-gray-900 dark:text-white mb-4">Filters</h3>
+
+        <%= form_with url: root_path, method: :get, class: "space-y-4" do |f| %>
+          <div class="space-y-2">
+            <% PokemonProduct::POKEMON_TYPES.each do |type| %>
+              <div class="flex items-center">
+                <%= check_box_tag "types[]",
+                    type,
+                    params[:types]&.include?(type),
+                    id: "type_#{type}",
+                    class: "rounded border-gray-300 dark:border-gray-600 text-blue-600" %>
+                  <%= label_tag "type_#{type}",
+                    type.titleize,
+                    class: "ml-2 text-gray-700 dark:text-gray-300" %>
+              </div>
+            <% end %>
+          </div>
+
+          <%= f.submit "Apply Filters",
+              class: "w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+          <% end %>
       </aside>
 
       <div class="col-span-8">

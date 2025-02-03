@@ -16,6 +16,8 @@ random_numbers(48).each do |pokemon_id|
   pokemon = PokeApi.get(pokemon: pokemon_id)
   species = PokeApi.get(pokemon_species: pokemon_id)
 
+  types = pokemon.types.map { |type| type.type.name }
+
   description = species.flavor_text_entries
     .find { |entry| entry.language.name == "en" }&.flavor_text
     .to_s.gsub(/\n|\f/, ' ')
@@ -25,7 +27,8 @@ random_numbers(48).each do |pokemon_id|
     description: description,
     price: rand(10.0..50.0).round(2),
     pokemon_api_id: pokemon_id,
-    sprite_url: pokemon.sprites.front_default
+    sprite_url: pokemon.sprites.front_default,
+    types: types
   )
   InventoryItem.create!(
     pokemon_product_id: new_pokemon.id,
