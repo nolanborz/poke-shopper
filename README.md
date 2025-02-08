@@ -1,24 +1,38 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Poke Shopper
 
-Things you may want to cover:
+A Pokemon team-building application that lets users collect and battle Pokemon using an innovative points-based system.
 
-* Ruby version
+## Features
+- Browse and purchase Pokemon using the PokeAPI integration
+- Dynamic Pokemon generation and display
+- Shopping cart and checkout system
+- [Any other key features]
 
-* System dependencies
+## Tech Stack
+- Ruby on Rails
+- TailwindCSS 
+- PostgreSQL
+- PokeAPI integration
 
-* Configuration
+## Future Development
+- Implementing PokePoints currency system
+- Team building mechanics (6 Pokemon limit)
+- Team rating algorithm
+- PvP battle system
+- [Other planned features]
 
-* Database creation
+## Installation & Setup
+[Add local development setup instructions]
 
-* Database initialization
+## Features Showcase
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Quantity](screenshots/quantity.png)
+*Users can select quantity of Pokemon they wish to purchase (dark mode is also enabled)
+![Filter](screenshots/filter.png)
+*Users can filter which types of Pokemon they want to see
+![Pokecart](screenshots/pokecart.png)
+#Ability to remove items from cart
+![Signin](screenshots/signin.png)
+#Sign in using Devise authentication
