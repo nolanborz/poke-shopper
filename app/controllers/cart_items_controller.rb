@@ -46,9 +46,27 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def update
+    @cart_item = CartItem.find(params[:id])
+    if @cart_item.update(cart_item_params)
+      respond_to do |format|
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.replace("cart_items", partial: "shopping_carts/cart_items", locals: { cart: @cart }),
+            turbo_stream.replace("cart_total", partial: "shopping_carts/cart_total", locals: { cart: @cart }),
+            turbo_stream.replace("cart_count", partial: "shared/cart_count", locals: { cart: @cart })
+          ]
+        }
+        format.html { redirect_to cart_path, notice: "Quantity updated successfully." }
+      end
+    else
+      redirect_to cart_path, alert: "Failed to update cart quantity."
+    end
+  end
+
   private
 
   def cart_item_params
-    params.require(:cart_item).permit(:pokemon_product_id, :quantity)
+    params.require(:cart_item).permit(:quantity, :pokemon_product_id)
   end
 end

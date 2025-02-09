@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resource :cart, controller: :shopping_carts, only: [ :show ]
     resources :pokemon_products
     resources :orders
-    resources :cart_items, only: [ :create, :destroy ]  # Added destroy
+    resources :cart_items
 
     root "home#index"
   end

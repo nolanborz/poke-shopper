@@ -1,0 +1,32 @@
+<%= turbo_frame_tag dom_id(item) do %>
+  <div class="flex items-center gap-4 p-4 border rounded dark:border-gray-700">
+    <div class="w-24">
+      <%= image_tag item.pokemon_product.sprite_url, class: "w-full" if item.pokemon_product.sprite_url.present? %>
+    </div>
+    
+    <div class="flex-1">
+      <h3 class="text-lg font-bold dark:text-white"><%= item.pokemon_product.name %></h3>
+      <p class="text-gray-600 dark:text-gray-300"><%= item.pokemon_product.description %></p>
+    </div>
+    
+    <div class="text-right">
+      <p class="font-bold dark:text-white">$<%= number_with_precision(item.pokemon_product.price * item.quantity, precision: 2) %></p>
+      
+      <%= form_with(model: item, local: true) do |f| %>
+        <div class="flex flex-wrap gap-2">
+          <%= f.number_field :quantity,
+              value: item.quantity,
+              min: 1,
+              class: "w-20 text-center rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white flex-shrink-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto",
+              style: "-moz-appearance: auto;" %>
+          <%= f.submit "Update",
+              class: "flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 min-w-fit" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <%= button_to "Remove", cart_item_path(item), method: :delete,
+        class: "text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300",
+        form: { class: "inline-block" } %>
+  </div>
+<% end %>
