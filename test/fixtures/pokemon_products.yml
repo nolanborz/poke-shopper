@@ -1,13 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  price: 9.99
-  pokemon_api_id: MyString
-
+  name: Pikachu
+  description: "Pikachu is a small, chubby, mouse-like Pokémon that is covered in yellow fur. It has a lightning bolt-shaped tail and red pouches on its cheeks that store electricity."
+  price: 4.99
+  pokemon_api_id: 25
+  sprite_url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+  types: ["electric"]
 two:
-  name: MyString
-  description: MyText
+  name: Gyarados
+  description: "A violent, serpentine Pokémon with blue and yellow scales, a large mouth, and four pointed teeth."
   price: 9.99
-  pokemon_api_id: MyString
+  pokemon_api_id: 130
+  sprite_url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png"
+  types: ["water, flying"]
