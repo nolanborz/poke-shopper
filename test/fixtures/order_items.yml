@@ -2,12 +2,12 @@
 
 one:
   order: one
-  pokemon_product: one
+  pokemon_product: pikachu
   quantity: 1
   price_at_time_of_purchase: 9.99
 
 two:
   order: two
-  pokemon_product: two
-  quantity: 1
+  pokemon_product: gyarados
+  quantity: 2
   price_at_time_of_purchase: 9.99

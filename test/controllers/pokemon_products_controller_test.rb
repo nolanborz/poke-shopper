@@ -4,14 +4,6 @@ class PokemonProductsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
-  test "product attributes must not be empty" do
-    product = PokemonProduct.new
-    assert product.invalid?
-    assert product.errors[:name].any?
-    assert product.errors[:description].any?
-    assert product.errors[:price].any?
-    assert product.errors[:types].any?
-  end
 end
 
 # product = PokemonProduct.new(

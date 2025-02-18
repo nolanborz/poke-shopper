@@ -2,10 +2,10 @@
 
 one:
   shopping_cart: one
-  pokemon_product: one
+  pokemon_product: pikachu
   quantity: 1
 
 two:
   shopping_cart: two
-  pokemon_product: two
+  pokemon_product: gyarados
   quantity: 1
