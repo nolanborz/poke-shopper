@@ -28,11 +28,15 @@ A Pokemon team-building application that lets users collect and battle Pokemon u
 
 ## Features Showcase
 
-![Quantity](screenshots/quantity.png)
 *Users can select quantity of Pokemon they wish to purchase (dark mode is also enabled)
-![Filter](screenshots/filter.png)
+![Quantity](screenshots/quantity.png)
 *Users can filter which types of Pokemon they want to see
+![Filter](screenshots/filter.png)
+*Ability to remove items from cart
 ![Pokecart](screenshots/pokecart.png)
-#Ability to remove items from cart
+*Sign in using Devise authentication
 ![Signin](screenshots/signin.png)
-#Sign in using Devise authentication
+*Enter shipping information on the order page
+![Shipit](screenshots/shipping.png)
+*Receive order confirmation once the order is placed
+![ConfirmOrder](screenshots/order.png)
