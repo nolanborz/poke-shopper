@@ -1,0 +1,89 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold dark:text-white">Order Confirmation</h1>
+      <span class="text-gray-500 dark:text-gray-400">Order #<%= @order.id %></span>
+    </div>
+    
+    <div class="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 p-4 mb-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm leading-5 text-green-700 dark:text-green-300">
+            Thank you for your order! We've received your order and will process it soon.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div>
+        <h2 class="text-lg font-semibold mb-2 dark:text-white">Order Details</h2>
+        <p class="dark:text-gray-300">Order Status: <%= @order.status.capitalize %></p>
+        <p class="dark:text-gray-300">Order Date: <%= @order.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+      
+      <div>
+        <h2 class="text-lg font-semibold mb-2 dark:text-white">Shipping Information</h2>
+        <p class="dark:text-gray-300"><%= @order.shipping_name %></p>
+        <p class="dark:text-gray-300"><%= @order.shipping_address %></p>
+        <p class="dark:text-gray-300"><%= @order.shipping_city %>, <%= @order.shipping_state %> <%= @order.shipping_zip %></p>
+        <p class="dark:text-gray-300"><%= @order.shipping_country %></p>
+        <p class="dark:text-gray-300">Phone: <%= @order.phone_number %></p>
+      </div>
+    </div>
+    
+    <h2 class="text-lg font-semibold mb-2 dark:text-white">Order Items</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Product</th>
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Price</th>
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Quantity</th>
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Total</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <% @order.order_items.includes(:pokemon_product).each do |item| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                <div class="flex items-center gap-3">
+                  <% if item.pokemon_product.sprite_url.present? %>
+                    <img src="<%= item.pokemon_product.sprite_url %>" alt="<%= item.pokemon_product.name %>" class="w-12 h-12">
+                  <% end %>
+                  <%= item.pokemon_product.name %>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                $<%= number_with_precision(item.price_at_time_of_purchase, precision: 2) %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                <%= item.quantity %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                $<%= number_with_precision(item.price_at_time_of_purchase * item.quantity, precision: 2) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="3" class="px-6 py-3 text-right text-sm font-semibold dark:text-white">Total:</th>
+            <th class="px-6 py-3 text-right text-sm font-semibold dark:text-white">
+              $<%= number_with_precision(@order.order_items.sum { |item| item.price_at_time_of_purchase * item.quantity }, precision: 2) %>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    
+    <div class="mt-6 text-center">
+      <%= link_to "Continue Shopping", pokemon_products_path, class: "inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-150 ease-in-out" %>
+    </div>
+  </div>
+</div>

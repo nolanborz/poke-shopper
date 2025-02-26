@@ -45,7 +45,7 @@
     </nav>
 
     <main class="container mx-auto grid grid-cols-12 gap-4 p-4">
-      <% unless controller_path.start_with?('devise/') || current_page?(cart_path) %>
+      <% unless controller_path.start_with?('devise/') || current_page?(cart_path) || controller_path == 'orders' %>
       <aside class=" hidden md:block col-span-2 bg-white  dark:bg-gray-800 p-4 rounded shadow">
         <h3 class="text-gray-900 dark:text-white mb-4">Filters</h3>
 

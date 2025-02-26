@@ -1,0 +1,40 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6 dark:text-white">Your Orders</h1>
+  
+  <% if @orders.any? %>
+    <div class="space-y-6">
+      <% @orders.each do |order| %>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div class="flex flex-wrap items-center justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-semibold dark:text-white">Order #<%= order.id %></h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Placed on <%= order.created_at.strftime("%B %d, %Y") %></p>
+            </div>
+            <div>
+              <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                <%= order.status.capitalize %>
+              </span>
+            </div>
+            <div class="mt-3 w-full sm:mt-0 sm:w-auto">
+              <%= link_to "View Details", order_path(order), class: "text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300" %>
+            </div>
+          </div>
+          
+          <div class="border-t dark:border-gray-700 pt-4">
+            <p class="font-medium dark:text-white">
+              Total: $<%= number_with_precision(order.order_items.sum { |item| item.price_at_time_of_purchase * item.quantity }, precision: 2) %>
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              <%= order.order_items.sum(:quantity) %> items
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center">
+      <p class="text-gray-500 dark:text-gray-400 mb-4">You haven't placed any orders yet.</p>
+      <%= link_to "Start Shopping", pokemon_products_path, class: "inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-150 ease-in-out" %>
+    </div>
+  <% end %>
+</div>
